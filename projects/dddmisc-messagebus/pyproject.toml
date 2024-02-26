@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "dddmisc-messagebus"
+version = "0.6.0"
+description = "This package provides the implementation messagebus"
+authors = ['Vladislav Vorobyov <vladislav.vorobyov@gmail.com>']
+license = "MIT"
+
+packages = [
+    { include = "d3m/messagebus", from = "../../bases" },
+]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+dddmisc-core = "~0.6.0"
+
+[tool.poetry.group.dev.dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

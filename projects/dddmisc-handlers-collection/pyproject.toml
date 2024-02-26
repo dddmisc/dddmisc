@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "dddmisc-handlers-collection"
+version = "0.5.0"
+description = "This package provides implementation a collection of command’s and event’s handlers"
+authors = ['Vladislav Vorobyov <vladislav.vorobyov@gmail.com>']
+license = "MIT"
+
+packages = [
+    { include = "d3m/hc", from = "../../bases" },
+]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+dddmisc-core = "~0.6.0"
+tenacity = "^8.0.0"
+
+[tool.poetry.group.dev.dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

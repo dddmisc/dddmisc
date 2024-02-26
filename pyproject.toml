@@ -1,0 +1,65 @@
+[tool.poetry]
+name = "dddmisc"
+version = "0.1.0"
+description = ""
+authors = ["Vladislav Vorobyov <vladislav.vorobyov@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+packages = [
+    { include = "d3m/core", from = "bases" },
+]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+tenacity = "8.0.0"
+pydantic = "2.0.0"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest-cov = {extras = ["toml"], version = "^4.1.0"}
+pytest-asyncio = "^0.23.5"
+pytest-mock = "^3.12.0"
+mypy = "^1.8.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = [
+    "test",
+]
+filterwarnings = [
+    'ignore::DeprecationWarning:pytest_asyncio',
+]
+
+[tool.mypy]
+mypy_path = [
+    "components",
+    "bases"
+]
+packages = ["d3m"]
+namespace_packages = true
+explicit_package_bases = true
+
+[tool.coverage.paths]
+source = [
+    "bases/dddmisc",
+    'components/dddmisc'
+]
+[tool.coverage.report]
+fail_under = 99
+show_missing = true
+skip_covered = true
+skip_empty = true
+ignore_errors = true
+exclude_lines = [
+    "@abc.abstractmethod",
+    "@t.overload",
+    "Protocol",
+    "def __hash__",
+    "pragma: no cover",
+    "raise NotImplementedError"
+]
