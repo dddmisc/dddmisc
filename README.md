@@ -1,4 +1,4 @@
-# DDDMisc
+# ![](https://dddmisc.github.io/dddmisc-docs/img/logo.svg)
 
 DDDMisc is a set of libraries that provide basic solutions
 for implementing domain-driven design methods
@@ -10,7 +10,8 @@ The public API is not guaranteed to be backward
 compatible between minor versions of packages.**
 
 ## Documentation
-Coming soon...
+- English (Coming soon...)
+- [Russian](https://dddmisc.github.io/dddmisc-docs/)
 
 ## Libraries
 - `dddmisc-core`- this package provides the core interfaces and

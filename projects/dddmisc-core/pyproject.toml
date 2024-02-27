@@ -1,9 +1,12 @@
 [tool.poetry]
 name = "dddmisc-core"
-version = "0.6.0"
+version = "0.6.1"
 description = "This package provides the core interfaces and types for dddmisc packages family"
 authors = ['Vladislav Vorobyov <vladislav.vorobyov@gmail.com>']
+homepage = "https://dddmisc.github.io/dddmisc-docs/"
+repository = "https://github.com/dddmisc/dddmisc"
 license = "MIT"
+readme = "README.md"
 
 packages = [
     { include = "d3m/core", from = "../../bases" },

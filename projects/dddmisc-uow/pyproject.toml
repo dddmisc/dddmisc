@@ -1,9 +1,12 @@
 [tool.poetry]
 name = "dddmisc-unit-of-work"
-version = "0.3.0"
+version = "0.3.1"
 description = "This package provides the implementation pattern 'unit of work'"
 authors = ['Vladislav Vorobyov <vladislav.vorobyov@gmail.com>']
+homepage = "https://dddmisc.github.io/dddmisc-docs/"
+repository = "https://github.com/dddmisc/dddmisc"
 license = "MIT"
+readme = "README.md"
 
 packages = [
     { include = "d3m/uow", from = "../../bases" },
