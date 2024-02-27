@@ -1,9 +1,13 @@
 [tool.poetry]
 name = "dddmisc-domain"
-version = "0.5.0"
+version = "0.5.1"
 description = "This package provides implementation domain's objects classes"
 authors = ['Vladislav Vorobyov <vladislav.vorobyov@gmail.com>']
+homepage = "https://dddmisc.github.io/dddmisc-docs/"
+repository = "https://github.com/dddmisc/dddmisc"
 license = "MIT"
+readme = "README.md"
+
 
 packages = [
     { include = "d3m/domain", from = "../../bases" },
@@ -13,9 +17,6 @@ packages = [
 python = "^3.10"
 dddmisc-core = "~0.6.0"
 pydantic = "^2.0.0"
-
-[tool.poetry.extras]
-pydantic = ["pydantic"]
 
 [tool.poetry.group.dev.dependencies]
 
