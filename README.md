@@ -1,4 +1,8 @@
 # ![](https://dddmisc.github.io/dddmisc-docs/img/logo.svg)
+![GitHub License](https://img.shields.io/github/license/dddmisc/dddmisc)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/dddmisc-core)
+
+
 
 DDDMisc is a set of libraries that provide basic solutions
 for implementing domain-driven design methods
@@ -27,9 +31,11 @@ You can only use the packages you need.
 All packages install `dddmisc-core` as its dependency.
 
 ### Install `dddmics-domain`
+
 ```shell
 pip install dddmisc-domain
 ```
+![PyPI - Downloads](https://img.shields.io/pypi/dm/dddmisc-domain)
 
 This package install [`pydantic`](https://github.com/pydantic/pydantic) as its dependency.
 
@@ -37,15 +43,18 @@ This package install [`pydantic`](https://github.com/pydantic/pydantic) as its d
 ```shell
 pip install dddmisc-messagebus
 ```
+![PyPI - Downloads](https://img.shields.io/pypi/dm/dddmisc-messagebus)
 
 ### Install `dddmisc-handlers-collection`
 ```shell
 pip install dddmisc-handlers-collection
 ```
+![PyPI - Downloads](https://img.shields.io/pypi/dm/dddmisc-handlers-collection)
 
 This package install [`tenacity`](https://github.com/jd/tenacity/tree/main) as its dependency.
 
 ### Install `dddmisc-uow`
 ```shell
-pip install dddmisc-uow
+pip install dddmisc-unit-of-work
 ```
+![PyPI - Downloads](https://img.shields.io/pypi/dm/dddmisc-unit-of-work)
