@@ -1,12 +1,13 @@
 import typing as t
 from collections import ChainMap, defaultdict
-from typing import Callable, Coroutine
+from typing import Callable, Coroutine, Generator
 import logging
 import io
 
 import pytest
 from d3m import core as c
 from d3m.core import DomainName
+from d3m.core.abstractions import AbstractCommandMeta
 
 
 @pytest.fixture
@@ -93,6 +94,10 @@ def handler_collection_factory():
                 result.append(self._build_wrapper(__event, handler, **dependencies))
 
             return tuple(result)  # noqa
+
+        def get_registered_commands(self) -> Generator[AbstractCommandMeta, None, None]:
+            for handler in self._command_handlers.values():
+                yield handler
 
         def _build_wrapper(self, message, handler, **kwargs):
             async def wrapper():

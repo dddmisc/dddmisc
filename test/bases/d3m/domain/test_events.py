@@ -306,3 +306,9 @@ class TestDomainEvent:
 
             class EventTest(DomainEvent, domain="test-event"):  # noqa
                 pass
+
+    def test_get_event_model(self):
+        class EventTest(DomainEvent, domain="test-event"):  # noqa
+            pass
+
+        assert issubclass(DomainEvent.__model__, BaseModel)

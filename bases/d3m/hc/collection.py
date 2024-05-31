@@ -1,7 +1,7 @@
 import logging
 from copy import copy
 from types import MappingProxyType
-from typing import Any, Mapping, Callable, Coroutine
+from typing import Any, Mapping, Callable, Coroutine, Iterable, Generator
 
 import tenacity as tc
 from d3m.core import (
@@ -36,6 +36,7 @@ class HandlersCollection(IHandlersCollection):
     Methods:
         get_command_handler: Retrieves the command handler for the specified command.
         get_event_handlers: Retrieves the event handlers for the specified event.
+        get_registered_commands: Retrives registered handler commands.
         register: Registers a command handler.
         subscribe: Registers an event subscription.
         set_defaults: Sets default values for the specified domain.
@@ -176,6 +177,13 @@ class HandlersCollection(IHandlersCollection):
                 )
         return tuple(result)
 
+    def get_registered_commands(self) -> Generator[AbstractCommandMeta, None, None]:
+        subscribed_commands_keys = self._get_subscribed_commands_keys()
+        for handler in self._command_handlers.values():
+            command_class = handler.command_class
+            if (command_class.__domain_name__, command_class.__message_name__) not in subscribed_commands_keys:
+                yield command_class
+
     def register(self, func: Callable[..., Coroutine]) -> ICommandHandler:
         """
         Registers a command handler.
@@ -287,6 +295,13 @@ class HandlersCollection(IHandlersCollection):
             domain, _ = key
             if domain == __domain:
                 self._command_handlers[key] = self._set_handler_defaults(handler)
+
+    def _get_subscribed_commands_keys(self) -> set[tuple[DomainName, MessageName]]:
+        commands_keys = set()
+        for event_config in self._events_configs.values():
+            for subscribe_config in event_config:
+                commands_keys.add(subscribe_config.command_key)
+        return commands_keys
 
     def __copy__(self):
         new_collection = type(self)(name=self._name)

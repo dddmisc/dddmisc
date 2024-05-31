@@ -173,3 +173,32 @@ class TestMessagebusHandlersCollection:
         collections = list(mb_collection._collections)
         assert collections[0].defaults == defaults
         assert collections[1].defaults == defaults
+
+    def test_get_registered_commands(self, handler_collection_factory):
+        cmd1 = UniversalMessage("test.TestCommand1", "COMMAND", {})
+        cmd2 = UniversalMessage("test.TestCommand2", "COMMAND", {})
+        cmd3 = UniversalMessage("test.TestCommand3", "COMMAND", {})
+
+        async def handler1(message, **kwargs):
+            pass
+
+        async def handler2(message, **kwargs):
+            pass
+
+        async def handler3(message, **kwargs):
+            pass
+
+        collection1 = handler_collection_factory()
+        collection1.add_handler(cmd1, handler1)
+        collection1.add_handler(cmd2, handler2)
+
+        collection2 = handler_collection_factory()
+        collection2.add_handler(cmd3, handler3)
+
+        mb_collection = MessagebusHandlersCollection()
+        mb_collection.include_collection(collection1)
+        mb_collection.include_collection(collection2)
+
+        handlers = set(cmd for cmd in mb_collection.get_registered_commands())
+        assert handlers == {handler1, handler2, handler3}
+

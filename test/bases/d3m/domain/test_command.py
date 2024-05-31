@@ -290,3 +290,9 @@ class TestDomainCommand:
 
         with pytest.raises(ValidationError, match="Instance is frozen"):
             obj.arg = "xyz"
+
+    def test_get_command_model(self):
+        class CommandTest(DomainCommand, domain="test-command"):
+            pass
+
+        assert issubclass(CommandTest.__model__, BaseModel)

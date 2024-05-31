@@ -6,13 +6,16 @@ from typing import (
     Mapping,
     Any,
     Callable,
+    Generator,
     Generic,
+    Type,
     TypeVar,
     NewType,
     Iterable,
 )
 from typing import TypedDict
 from uuid import UUID
+from pydantic import BaseModel
 
 from .types import DomainName, MessagebusEvents, MessageName, MessageType
 
@@ -25,6 +28,7 @@ class IMessageMeta(abc.ABCMeta):
     Attributes:
         __domain_name__: The name of the message domain. Should be of type DomainName.
         __message_name__: The name of the message. Should be of type MessageName.
+        __model__: The pydantic model of the message.
         __type__: The type of the message. Should be of type MessageType.
 
     Methods:
@@ -48,6 +52,16 @@ class IMessageMeta(abc.ABCMeta):
 
         Returns:
             MessageName: The name of the message.
+        """
+
+    @property
+    @abc.abstractmethod
+    def __model__(cls) -> Type[BaseModel]:
+        """
+        Get the pydantic model of the message.
+
+        Returns:
+            Type[BaseModel]: The pydantic model of the message.
         """
 
     @property
@@ -296,6 +310,24 @@ class Context(TypedDict):
     context_message: IMessage | None
 
 
+class IRegisteredCommands(abc.ABC):
+    """
+    Interface for getting commands from registered handlers.
+
+    This interface provides a method `get_registered_commands`
+    that allows users to get commands from registered handlers.
+    """
+
+    @abc.abstractmethod
+    def get_registered_commands(self) -> Generator[AbstractCommandMeta, None, None]:
+        """
+        Get commands from registered handlers.
+
+        Returns:
+            Generator[AbstractCommandMeta, None, None]: commands from registered handlers
+        """
+
+
 class IDefaultDependency(abc.ABC):
     """
     Abstract class for setting default dependencies for domain command handlers.
@@ -315,7 +347,7 @@ class IDefaultDependency(abc.ABC):
         """
 
 
-class IHandlersCollection(IDefaultDependency, abc.ABC):
+class IHandlersCollection(IRegisteredCommands, IDefaultDependency, abc.ABC):
     """
     IHandlersCollection is an abstract base class that defines the interface for a collection of message handlers.
 
@@ -414,7 +446,11 @@ class IMessagesPublisher(abc.ABC):
 
 
 class IMessagebus(
-    IMessagesPublisher, IEventsOfMessagebusManager, IDefaultDependency, abc.ABC
+    IMessagesPublisher,
+    IEventsOfMessagebusManager,
+    IRegisteredCommands,
+    IDefaultDependency,
+    abc.ABC,
 ):
     """
     Represents the interface for a message bus.
