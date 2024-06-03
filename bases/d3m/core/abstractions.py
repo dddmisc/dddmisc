@@ -108,6 +108,7 @@ class IMessage(abc.ABC, metaclass=IMessageMeta):
     Attributes:
         __domain_name__ (DomainName): The name of the subject area.
         __message_name__ (MessageName): The name of the message.
+        __model__: The pydantic model of the message.
         __type__ (MessageType): The type of the message.
         __reference__ (UUID): The identifier of the message.
         __timestamp__ (datetime.datetime): The creation time of the message.
@@ -232,6 +233,7 @@ class AbstractCommand(IMessage, abc.ABC, metaclass=AbstractCommandMeta):
     Attributes:
         __domain_name__ (DomainName): The name of the subject area.
         __message_name__ (MessageName): The name of the message.
+        __model__: The pydantic model of the message.
         __type__ (MessageType): The type of the message.
         __reference__ (UUID): The identifier of the message.
         __timestamp__ (datetime.datetime): The creation time of the message.
