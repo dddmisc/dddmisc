@@ -142,16 +142,6 @@ class IMessage(abc.ABC, metaclass=IMessageMeta):
 
     @property
     @abc.abstractmethod
-    def __model__(self) -> Type[BaseModel]:
-        """
-        Get the pydantic model of the message.
-
-        Returns:
-            Type[BaseModel]: The pydantic model of the message.
-        """
-
-    @property
-    @abc.abstractmethod
     def __type__(self) -> MessageType:
         """
         Get the type of the message.
