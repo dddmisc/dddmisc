@@ -14,6 +14,7 @@ from .abstractions import (
     IMessagebus,
     IMessagebusPolicy,
     IMessageMeta,
+    IRegisteredCommands,
     IEntity,
     Version,
     IRootEntity,
@@ -47,6 +48,7 @@ __all__ = [
     "IMessagebus",
     "IMessagebusPolicy",
     "IEntity",
+    'IRegisteredCommands',
     "Version",
     "IRootEntity",
     # tools
