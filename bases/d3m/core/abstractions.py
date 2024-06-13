@@ -186,6 +186,42 @@ class IMessage(abc.ABC, metaclass=IMessageMeta):
 
         """
 
+    def __eq__(self, other: Any) -> bool:
+        """
+        Checks for equality between two IMessage objects.
+
+        Compares the current object with another object to determine if they are equal.
+        The objects are considered equal if:
+        - other is an instance of IMessage
+        - self and other have identical values for the attributes __type__, __domain_name__, __message_name__, and __reference__
+
+        Args:
+            other (Any): The object to compare with the current object.
+
+        Returns:
+            bool: True if the objects are equal, otherwise False.
+        """
+        return (
+            isinstance(other, IMessage)
+            and self.__type__ == other.__type__
+            and self.__domain_name__ == other.__domain_name__
+            and self.__message_name__ == other.__message_name__
+            and self.__reference__ == other.__reference__
+        )
+
+    def __hash__(self):
+        """
+        Returns the hash value of the IMessage object.
+
+        The hash value is computed based on the __reference__ attribute. This method
+        allows IMessage objects to be used in hash tables and other data structures
+        that rely on hashing.
+
+        Returns:
+            int: The hash value of the IMessage object.
+        """
+        return hash(self.__reference__)
+
 
 class AbstractCommandMeta(IMessageMeta, abc.ABCMeta):
     @property

@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "dddmisc-core"
-version = "0.6.1"
+version = "0.6.2"
 description = "This package provides the core interfaces and types for dddmisc packages family"
 authors = ['Vladislav Vorobyov <vladislav.vorobyov@gmail.com>']
 homepage = "https://dddmisc.github.io/dddmisc-docs/"

@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "dddmisc-domain"
-version = "0.5.1"
+version = "0.5.2"
 description = "This package provides implementation domain's objects classes"
 authors = ['Vladislav Vorobyov <vladislav.vorobyov@gmail.com>']
 homepage = "https://dddmisc.github.io/dddmisc-docs/"
