@@ -451,7 +451,7 @@ class TestHandlersCollection:
             return cmd
 
         commands = set(command for command in collection.get_registered_commands())
-        assert commands == {cmd_class1, cmd_class2}
+        assert commands == {cmd_class1, cmd_class2, cmd_class3, cmd_class4}
 
 
 class TestDefaults:
