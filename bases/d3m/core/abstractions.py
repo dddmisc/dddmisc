@@ -28,7 +28,7 @@ class IMessageMeta(abc.ABCMeta):
     Attributes:
         __domain_name__: The name of the message domain. Should be of type DomainName.
         __message_name__: The name of the message. Should be of type MessageName.
-        __model__: The pydantic model of the message.
+        __payload_model__: The payload model of the message.
         __type__: The type of the message. Should be of type MessageType.
 
     Methods:
@@ -56,12 +56,12 @@ class IMessageMeta(abc.ABCMeta):
 
     @property
     @abc.abstractmethod
-    def __model__(cls) -> Type[BaseModel]:
+    def __payload_model__(cls) -> Type[BaseModel]:
         """
-        Get the pydantic model of the message.
+        Get the payload model of the message.
 
         Returns:
-            Type[BaseModel]: The pydantic model of the message.
+            Type[BaseModel]: The payload model of the message.
         """
 
     @property

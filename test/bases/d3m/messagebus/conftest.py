@@ -125,7 +125,7 @@ def handler_collection_factory():
                     return MessageName(message_name)
 
                 @property
-                def __model__(self) -> Type[BaseModel]:
+                def __payload_model__(self) -> Type[BaseModel]:
                     return BaseModel
 
             return CommandMeta()

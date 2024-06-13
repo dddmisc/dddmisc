@@ -295,4 +295,4 @@ class TestDomainCommand:
         class CommandTest(DomainCommand, domain="test-command"):
             pass
 
-        assert issubclass(CommandTest.__model__, BaseModel)
+        assert issubclass(CommandTest.__payload_model__, BaseModel)

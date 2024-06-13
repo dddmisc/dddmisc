@@ -311,4 +311,4 @@ class TestDomainEvent:
         class EventTest(DomainEvent, domain="test-event"):  # noqa
             pass
 
-        assert issubclass(DomainEvent.__model__, BaseModel)
+        assert issubclass(DomainEvent.__payload_model__, BaseModel)

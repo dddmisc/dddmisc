@@ -74,7 +74,7 @@ class BaseDomainMessageMeta(IMessageMeta, ModelMetaclass, abc.ABCMeta):
         return cls.__message_name
 
     @property
-    def __model__(cls) -> Type[BaseModel]:
+    def __payload_model__(cls) -> Type[BaseModel]:
         return cls
 
     @no_type_check
