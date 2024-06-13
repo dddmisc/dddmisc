@@ -883,11 +883,11 @@ class TestMessagebus:
         collection1 = handler_collection_factory()
         collection2 = handler_collection_factory()
 
-        async def test_handler1(message):
-            return message
+        async def test_handler1():
+            pass
 
-        async def test_handler2(message):
-            return message
+        async def test_handler2():
+            pass
 
         collection1.add_handler(cmd1, test_handler1)
         collection2.add_handler(cmd2, test_handler2)
@@ -896,8 +896,8 @@ class TestMessagebus:
         mb.include_collection(collection1)
         mb.include_collection(collection2)
 
-        registered_commands = set(cmd for cmd in mb.get_registered_commands())
-        assert registered_commands == {test_handler1, test_handler2}
+        registered_commands = {cmd.__message_name__ for cmd in mb.get_registered_commands()}
+        assert registered_commands == {'TestCommand1', 'TestCommand2'}
 
 
 class TestMessagebusPolicy:

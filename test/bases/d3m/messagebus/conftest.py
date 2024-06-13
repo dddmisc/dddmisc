@@ -1,12 +1,16 @@
+import datetime as dt
 import typing as t
 from collections import ChainMap, defaultdict
-from typing import Callable, Coroutine, Generator
+from typing import Callable, Coroutine, Generator, Type, Mapping
 import logging
 import io
+from uuid import UUID
 
 import pytest
+from pydantic import BaseModel
+
 from d3m import core as c
-from d3m.core import DomainName
+from d3m.core import DomainName, MessageName
 from d3m.core.abstractions import AbstractCommandMeta
 
 
@@ -96,8 +100,8 @@ def handler_collection_factory():
             return tuple(result)  # noqa
 
         def get_registered_commands(self) -> Generator[AbstractCommandMeta, None, None]:
-            for handler in self._command_handlers.values():
-                yield handler
+            for domain_name, message_name in self._command_handlers.keys():
+                yield self._create_command_meta(domain_name, message_name)
 
         def _build_wrapper(self, message, handler, **kwargs):
             async def wrapper():
@@ -107,6 +111,24 @@ def handler_collection_factory():
                 )
 
             return wrapper
+
+        @staticmethod
+        def _create_command_meta(domain_name: str, message_name: str):
+            class CommandMeta(metaclass=AbstractCommandMeta):
+
+                @property
+                def __domain_name__(self) -> DomainName:
+                    return DomainName(domain_name)
+
+                @property
+                def __message_name__(self) -> MessageName:
+                    return MessageName(message_name)
+
+                @property
+                def __model__(self) -> Type[BaseModel]:
+                    return BaseModel
+
+            return CommandMeta()
 
         @property
         def defaults(self):
