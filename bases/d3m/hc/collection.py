@@ -1,7 +1,7 @@
 import logging
 from copy import copy
 from types import MappingProxyType
-from typing import Any, Mapping, Callable, Coroutine
+from typing import Any, Mapping, Callable, Coroutine, Iterable, Generator
 
 import tenacity as tc
 from d3m.core import (
@@ -36,6 +36,7 @@ class HandlersCollection(IHandlersCollection):
     Methods:
         get_command_handler: Retrieves the command handler for the specified command.
         get_event_handlers: Retrieves the event handlers for the specified event.
+        get_registered_commands: Retrives registered handler commands.
         register: Registers a command handler.
         subscribe: Registers an event subscription.
         set_defaults: Sets default values for the specified domain.
@@ -175,6 +176,10 @@ class HandlersCollection(IHandlersCollection):
                     extra={"payload": __event.to_dict()},
                 )
         return tuple(result)
+
+    def get_registered_commands(self) -> Generator[AbstractCommandMeta, None, None]:
+        for handler in self._command_handlers.values():
+            yield handler.command_class
 
     def register(self, func: Callable[..., Coroutine]) -> ICommandHandler:
         """

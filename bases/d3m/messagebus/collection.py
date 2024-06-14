@@ -1,6 +1,6 @@
 from contextlib import suppress
 from copy import copy
-from typing import Any, Coroutine, Callable
+from typing import Any, Coroutine, Callable, Generator
 
 from d3m.core import (
     IHandlersCollection,
@@ -8,6 +8,7 @@ from d3m.core import (
     AbstractEvent,
     DomainName,
 )
+from d3m.core.abstractions import AbstractCommandMeta
 
 
 class MessagebusHandlersCollection(IHandlersCollection):
@@ -45,6 +46,11 @@ class MessagebusHandlersCollection(IHandlersCollection):
             with suppress(Exception):
                 result.extend(collection.get_event_handlers(__event, **dependencies))
         return tuple(result)
+
+    def get_registered_commands(self) -> Generator[AbstractCommandMeta, None, None]:
+        for collection in self._collections:
+            for command in collection.get_registered_commands():
+                yield command
 
     def include_collection(self, collection: IHandlersCollection) -> None:
         if not isinstance(collection, IHandlersCollection):

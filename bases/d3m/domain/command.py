@@ -30,6 +30,7 @@ class DomainCommand(BaseDomainMessage, AbstractCommand, metaclass=_DomainCommand
         __domain_name__ (DomainName): The domain name associated with the current command.
         __message_name__ (MessageName): The message name associated with the current command.
         __payload__ (dict): The payload of the command.
+        __payload_model__ (Type[BaseModel]): The payload model associated with the current command.
         __type__ (MessageType): Always return `MessageType.COMMAND`
         __reference__ (UUID): The unique identifier for the command.
         __timestamp__ (datetime.datetime): The timestamp of when the command was created.

@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "dddmisc-handlers-collection"
-version = "0.5.1"
+version = "0.6.0"
 description = "This package provides implementation a collection of command’s and event’s handlers"
 authors = ['Vladislav Vorobyov <vladislav.vorobyov@gmail.com>']
 homepage = "https://dddmisc.github.io/dddmisc-docs/"
@@ -14,7 +14,7 @@ packages = [
 
 [tool.poetry.dependencies]
 python = "^3.10"
-dddmisc-core = "~0.6.0"
+dddmisc-core = "~0.7.0"
 tenacity = "^8.0.0"
 
 [tool.poetry.group.dev.dependencies]

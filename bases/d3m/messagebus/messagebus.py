@@ -27,7 +27,7 @@ from d3m.core import (
     AbstractCommand,
     AbstractEvent,
 )
-from d3m.core.abstractions import Context
+from d3m.core.abstractions import Context, AbstractCommandMeta
 
 from .collection import MessagebusHandlersCollection
 from .context import MessagebusContext
@@ -57,6 +57,7 @@ class Messagebus(IMessagebus):
         include_collection: Include a collection of handlers in the message bus.
         handle_message: Handle a message and return a future representing the completion of the handling.
         get_context: Get the context of the current instance.
+        get_registered_commands: Get commands from handlers collection.
         set_defaults: Set defaults for the domain's command's handlers.
     """
 
@@ -74,6 +75,10 @@ class Messagebus(IMessagebus):
         self._lifespan = _wrap_async_ctx_manager(lifespan_context)
         self._in_lifespan_context = False
         self._events_manager = MessagebusEventsManager(self)
+
+    def get_registered_commands(self) -> Generator[AbstractCommandMeta, None, None]:
+        for command in self._collection.get_registered_commands():
+            yield command
 
     def subscribe(
         self,
