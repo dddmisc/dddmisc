@@ -1,7 +1,7 @@
 import abc
 import datetime as dt
 from contextlib import suppress
-from typing import Mapping, TypeVar, no_type_check
+from typing import Mapping, TypeVar, no_type_check, Type
 from uuid import UUID, uuid4
 
 from pydantic import BaseModel, PrivateAttr, ConfigDict
@@ -72,6 +72,10 @@ class BaseDomainMessageMeta(IMessageMeta, ModelMetaclass, abc.ABCMeta):
     @property
     def __message_name__(cls) -> MessageName:
         return cls.__message_name
+
+    @property
+    def __payload_model__(cls) -> Type[BaseModel]:
+        return cls
 
     @no_type_check
     def load(

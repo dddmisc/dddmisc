@@ -424,6 +424,35 @@ class TestHandlersCollection:
             "key3": True,
         }
 
+    async def test_get_commands(self, command_class_builder):
+        collection = HandlersCollection()
+        cmd_class1 = command_class_builder("TestCommand1", "test")
+        cmd_class2 = command_class_builder("TestCommand2", "test")
+        cmd_class3 = command_class_builder("TestCommand3", "test")
+        cmd_class4 = command_class_builder("TestCommand4", "test")
+
+        @collection.register
+        async def test_handler1(cmd: cmd_class1):
+            return cmd
+
+        @collection.register
+        async def test_handler2(cmd: cmd_class2):
+            return cmd
+
+        @collection.subscribe("test.Event1")
+        @collection.register
+        async def test_event(cmd: cmd_class3):
+            return cmd
+
+        @collection.subscribe("test.Event1")
+        @collection.subscribe("test.Event2")
+        @collection.register
+        async def test_event(cmd: cmd_class4):
+            return cmd
+
+        commands = set(command for command in collection.get_registered_commands())
+        assert commands == {cmd_class1, cmd_class2, cmd_class3, cmd_class4}
+
 
 class TestDefaults:
     async def test_handler_defaults_priority(self, command_class_builder):

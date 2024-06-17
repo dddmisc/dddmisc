@@ -1,5 +1,6 @@
 import asyncio
 import typing as t
+from typing import Generator
 
 import pytest
 from d3m.core import (
@@ -17,11 +18,14 @@ from d3m.core import (
     set_messagebus_policy,
     helpers,
 )
-from d3m.core.abstractions import Context
+from d3m.core.abstractions import Context, AbstractCommandMeta
 from pytest_mock import MockerFixture
 
 
 class FakeMessagebus(IMessagebus):
+    def get_registered_commands(self) -> Generator[AbstractCommandMeta, None, None]:
+        pass
+
     def subscribe(
         self,
         *events: MessagebusEvents,
