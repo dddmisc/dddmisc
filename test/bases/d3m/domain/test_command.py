@@ -113,6 +113,17 @@ class TestDomainCommand:
         assert cmd.arg1 == 123
         assert cmd.arg2 == "test"
 
+    def test_command_hash(self):
+        class TestCommand(DomainCommand, domain="test-domain"):
+            arg1: int
+            arg2: str
+            data: dict
+
+        cmd = TestCommand(arg1=123, arg2="test", data={"key": "value"})
+
+        assert hash(cmd) == hash(cmd.__reference__)
+        assert cmd != TestCommand(arg1=123, arg2="test", data={"key": "value"})
+
     @pytest.mark.parametrize("arg1, arg2", ((123, "abc"), (456, "xyz"), (789, "test")))
     def test_load_command(self, arg1, arg2):
         class TestCommand(DomainCommand, domain="test-domain"):
