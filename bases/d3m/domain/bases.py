@@ -43,6 +43,8 @@ _T = TypeVar("_T", bound="BaseDomainMessage")
 
 
 class BaseDomainMessageMeta(IMessageMeta, ModelMetaclass, abc.ABCMeta):
+    __domain_name: DomainName
+
     @no_type_check
     def __new__(mcs, name, bases, namespace, domain: str | None = None):
         cls = super().__new__(mcs, name, bases, namespace)
@@ -75,7 +77,7 @@ class BaseDomainMessageMeta(IMessageMeta, ModelMetaclass, abc.ABCMeta):
 
     @property
     def __payload_model__(cls) -> Type[BaseModel]:
-        return cls
+        return cls  # type: ignore[return-value]
 
     @no_type_check
     def load(

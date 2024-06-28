@@ -22,11 +22,11 @@ class _EntityMeta(ModelMetaclass):
 
     def __init__(cls, name, bases, namespace, *, reference_factory=None, **kwargs):
         super().__init__(name, bases, namespace, **kwargs)
-        generic = cls.__pydantic_generic_metadata__.get("args", ())
+        generic = cls.__pydantic_generic_metadata__.get("args", ())  # type: ignore[attr-defined]
         if not generic:
             cls._reference_type = cls._reference_type or UUID
         elif type(generic[0]) is NewType:
-            cls._reference_type = generic[0].__supertype__
+            cls._reference_type = generic[0].__supertype__  # type: ignore[assignment]
         else:
             cls._reference_type = generic[0]
 

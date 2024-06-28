@@ -13,7 +13,7 @@ packages = [
 [tool.poetry.dependencies]
 python = "^3.10"
 tenacity = "8.0.0"
-pydantic = "2.0.0"
+pydantic = "2.1.0"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -43,6 +43,7 @@ mypy_path = [
 packages = ["d3m"]
 namespace_packages = true
 explicit_package_bases = true
+check_untyped_defs = true
 
 [tool.coverage.paths]
 source = [

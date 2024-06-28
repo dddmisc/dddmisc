@@ -49,7 +49,7 @@ class MessagebusHandlersCollection(IHandlersCollection):
 
     def get_registered_commands(self) -> Generator[AbstractCommandMeta, None, None]:
         for collection in self._collections:
-            for command in collection.get_registered_commands():
+            for command in collection.get_registered_commands():  # type: ignore[attr-defined]
                 yield command
 
     def include_collection(self, collection: IHandlersCollection) -> None:
