@@ -166,9 +166,9 @@ class Messagebus(IMessagebus):
     async def close(self):
         notify = not self._is_closed
         self._is_closed = True
+        await self.stop()
         if notify:
             await self._events_manager.notify(MessagebusEvents.BEFORE_CLOSE, self)
-        await self.stop()
         with suppress(StopAsyncIteration):
             await anext(self._lifespan)
         if notify:
