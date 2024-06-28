@@ -94,7 +94,7 @@ class BaseDomainMessageMeta(IMessageMeta, ModelMetaclass, abc.ABCMeta):
         return obj
 
 
-class BaseDomainMessage(IMessage, BaseModel, abc.ABC, metaclass=BaseDomainMessageMeta):
+class BaseDomainMessage(BaseModel, IMessage, abc.ABC, metaclass=BaseDomainMessageMeta):
     """
     Class representing a base domain message.
 

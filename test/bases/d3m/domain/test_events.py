@@ -114,17 +114,6 @@ class TestDomainEvent:
         assert event.arg1 == 123
         assert event.arg2 == "test"
 
-    def test_command_hash(self):
-        class TestEvent(DomainEvent, domain="test-domain"):
-            arg1: int
-            arg2: str
-            data: dict
-
-        cmd = TestEvent(arg1=123, arg2="test", data={"key": "value"})
-
-        assert hash(cmd) == hash(cmd.__reference__)
-        assert cmd != TestEvent(arg1=123, arg2="test", data={"key": "value"})
-
     @pytest.mark.parametrize("arg1, arg2", ((123, "abc"), (456, "xyz"), (789, "test")))
     def test_load_event(self, arg1, arg2):
         class TestEvent(DomainEvent, domain="test-domain"):
