@@ -2,9 +2,10 @@ import datetime as dt
 from copy import deepcopy
 from uuid import UUID, uuid4
 
+from pydantic_core import to_jsonable_python, to_json
+
 from . import IMessage, DomainName, MessageName, MessageType
 from .helpers import parse_full_message_name
-from .types import FrozenJsonDict
 
 
 class UniversalMessage(IMessage):
@@ -79,7 +80,6 @@ class UniversalMessage(IMessage):
             else message_type
         )
         self._payload = deepcopy(payload)
-        self._json_payload = FrozenJsonDict(payload)
 
         self._reference = reference or uuid4()
         self._timestamp = timestamp or dt.datetime.now(dt.timezone.utc)
@@ -124,7 +124,7 @@ class UniversalMessage(IMessage):
         return self._payload
 
     def to_dict(self) -> dict:
-        return self._json_payload
+        return to_jsonable_python(self._payload, serialize_unknown=True)
 
     def to_json(self) -> str:
-        return str(self._json_payload)
+        return to_json(self._payload, serialize_unknown=True).decode()

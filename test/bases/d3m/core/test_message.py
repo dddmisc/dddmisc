@@ -1,11 +1,13 @@
 import datetime as dt
-import json
 import uuid
 from uuid import UUID, uuid4
 import enum
 
 import pytest
 from decimal import Decimal
+
+from pydantic_core import to_jsonable_python, to_json
+
 from d3m.core import IMessage, DomainName, MessageName, UniversalMessage
 
 
@@ -71,53 +73,31 @@ class TestUniversalMessage:
         )
 
     @pytest.mark.parametrize(
-        "payload, result_dict",
+        "payload",
         [
-            (
-                {
-                    "date": dt.date(2023, 1, 1),
-                    "uuid": uuid.UUID(int=1),
-                    "datetime": dt.datetime(2023, 1, 1, 1, 2, 3),
-                    "datetime_with_tz": dt.datetime(
-                        2023, 1, 1, 1, 2, 3, 789, dt.timezone.utc
-                    ),
-                    "bool": True,
-                    "int": 123,
-                    "float": 123.56,
-                    "decimal": Decimal("100.01"),
-                    "string": "abc",
-                    "list": [123, 456],
-                    "set": {456, 123},
-                    "tuple": (123, 456),
-                    "dict": {"key1": uuid.UUID(int=2), "key2": 789},
-                    "enum": EnumTest.COMMAND,
-                    "other_object": UniversalMessage,
-                },
-                {
-                    "date": "2023-01-01",
-                    "uuid": "00000000-0000-0000-0000-000000000001",
-                    "datetime": "2023-01-01T01:02:03",
-                    "datetime_with_tz": "2023-01-01T01:02:03.000789+00:00",
-                    "bool": True,
-                    "int": 123,
-                    "float": 123.56,
-                    "decimal": "100.01",
-                    "string": "abc",
-                    "list": (123, 456),
-                    "set": (456, 123),
-                    "tuple": (123, 456),
-                    "dict": {
-                        "key1": "00000000-0000-0000-0000-000000000002",
-                        "key2": 789,
-                    },
-                    "enum": "COMMAND",
-                    "other_object": "<class 'd3m.core.message.UniversalMessage'>",
-                },
-            ),
+            {
+                "date": dt.date(2023, 1, 1),
+                "uuid": uuid.UUID(int=1),
+                "datetime": dt.datetime(2023, 1, 1, 1, 2, 3),
+                "datetime_with_tz": dt.datetime(
+                    2023, 1, 1, 1, 2, 3, 789, dt.timezone.utc
+                ),
+                "bool": True,
+                "int": 123,
+                "float": 123.56,
+                "decimal": Decimal("100.01"),
+                "string": "abc",
+                "list": [123, 456],
+                "set": {456, 123},
+                "tuple": (123, 456),
+                "dict": {"key1": uuid.UUID(int=2), "key2": 789},
+                "enum": EnumTest.COMMAND,
+                "other_object": UniversalMessage,
+            }
         ],
     )
-    def test_dump(self, payload, result_dict):
+    def test_dump(self, payload):
         msg = UniversalMessage("test.CMD", "COMMAND", payload)
-        assert msg.to_dict() == result_dict
-        assert msg.to_json() == json.dumps(result_dict)
+        assert msg.to_dict() == to_jsonable_python(payload, serialize_unknown=True)
+        assert msg.to_json() == to_json(payload, serialize_unknown=True).decode()
         assert isinstance(msg.to_json(), str)

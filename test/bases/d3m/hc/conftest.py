@@ -7,6 +7,8 @@ import logging
 import io
 
 import pytest
+from pydantic_core import to_jsonable_python
+
 from d3m.core import (
     IMessageMeta,
     IMessage,
@@ -16,7 +18,6 @@ from d3m.core import (
     AbstractCommand,
 )
 from d3m.core.abstractions import AbstractCommandMeta
-from d3m.core.types import FrozenJsonDict
 
 
 @pytest.fixture
@@ -131,7 +132,7 @@ def command_class_builder():
                 return asdict(self)
 
             def to_dict(self) -> dict:
-                return FrozenJsonDict(self.__payload__)
+                return to_jsonable_python(self.__payload__)
 
             def to_json(self) -> str:
                 return json.dumps(self.to_dict())

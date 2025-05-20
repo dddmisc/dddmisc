@@ -3,8 +3,9 @@ from contextlib import suppress
 from string import Formatter
 from typing import Mapping, Any
 
+from pydantic_core import to_jsonable_python
+
 from d3m.core import DomainName
-from d3m.core.types import FrozenJsonDict
 from .bases import get_domain_name
 from .collection import DomainObjectsCollection
 
@@ -127,7 +128,7 @@ class DomainError(Exception, metaclass=_DomainErrorMeta):
         else:
             message = __message
         super().__init__(message)
-        self._payload = FrozenJsonDict(kwargs)
+        self._payload = to_jsonable_python(kwargs, serialize_unknown=True)
 
     @property
     def __domain_name__(self) -> DomainName:
