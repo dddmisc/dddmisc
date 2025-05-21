@@ -1,7 +1,7 @@
 import logging
 from copy import copy
 from types import MappingProxyType
-from typing import Any, Mapping, Callable, Coroutine, Iterable, Generator
+from typing import Any, Mapping, Callable, Coroutine, Generator
 
 import tenacity as tc
 from d3m.core import (

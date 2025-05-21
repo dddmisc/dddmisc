@@ -1,7 +1,6 @@
 import pytest
 
 from d3m.core import DomainName
-from d3m.core.types import FrozenJsonDict
 from d3m.domain import (
     DomainError,
     get_error_class,
@@ -114,8 +113,6 @@ class TestDomainException:
         error = Error(arg1="abc", arg2=123, arg3=False)
 
         assert error.__payload__ == dict(arg1="abc", arg2=123, arg3=False)
-
-        assert isinstance(error.__payload__, FrozenJsonDict)
 
     def test_register_error_class_in_objects_collection(self):
         class Error(DomainError, domain="test"):

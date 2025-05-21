@@ -1,10 +1,8 @@
-import datetime as dt
 import typing as t
 from collections import ChainMap, defaultdict
-from typing import Callable, Coroutine, Generator, Type, Mapping
+from typing import Callable, Coroutine, Generator, Type
 import logging
 import io
-from uuid import UUID
 
 import pytest
 from pydantic import BaseModel
@@ -115,7 +113,6 @@ def handler_collection_factory():
         @staticmethod
         def _create_command_meta(domain_name: str, message_name: str):
             class CommandMeta(metaclass=AbstractCommandMeta):
-
                 @property
                 def __domain_name__(self) -> DomainName:
                     return DomainName(domain_name)

@@ -896,8 +896,10 @@ class TestMessagebus:
         mb.include_collection(collection1)
         mb.include_collection(collection2)
 
-        registered_commands = {cmd.__message_name__ for cmd in mb.get_registered_commands()}
-        assert registered_commands == {'TestCommand1', 'TestCommand2'}
+        registered_commands = {
+            cmd.__message_name__ for cmd in mb.get_registered_commands()
+        }
+        assert registered_commands == {"TestCommand1", "TestCommand2"}
 
 
 class TestMessagebusPolicy:

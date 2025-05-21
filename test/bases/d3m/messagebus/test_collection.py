@@ -199,6 +199,7 @@ class TestMessagebusHandlersCollection:
         mb_collection.include_collection(collection1)
         mb_collection.include_collection(collection2)
 
-        handlers = set(cmd.__message_name__ for cmd in mb_collection.get_registered_commands())
-        assert handlers == {'TestCommand1', 'TestCommand2', 'TestCommand3'}
-
+        handlers = set(
+            cmd.__message_name__ for cmd in mb_collection.get_registered_commands()
+        )
+        assert handlers == {"TestCommand1", "TestCommand2", "TestCommand3"}

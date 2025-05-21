@@ -48,7 +48,7 @@ __all__ = [
     "IMessagebus",
     "IMessagebusPolicy",
     "IEntity",
-    'IRegisteredCommands',
+    "IRegisteredCommands",
     "Version",
     "IRootEntity",
     # tools

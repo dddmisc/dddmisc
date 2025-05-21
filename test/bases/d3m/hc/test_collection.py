@@ -441,13 +441,13 @@ class TestHandlersCollection:
 
         @collection.subscribe("test.Event1")
         @collection.register
-        async def test_event(cmd: cmd_class3):
+        async def test_event1(cmd: cmd_class3):
             return cmd
 
         @collection.subscribe("test.Event1")
         @collection.subscribe("test.Event2")
         @collection.register
-        async def test_event(cmd: cmd_class4):
+        async def test_event2(cmd: cmd_class4):
             return cmd
 
         commands = set(command for command in collection.get_registered_commands())
