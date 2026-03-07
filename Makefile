@@ -1,58 +1,53 @@
 
 check.dddmisc-core:
-	poetry check-project -C ./projects/dddmisc-core
-	poetry run pytest test/bases/d3m/core
+	uv run pytest test/bases/d3m/core
 
 build.dddmisc-core: check.dddmisc-core
 	rm -rf ./projects/dddmisc-core/dist
-	poetry build-project -C ./projects/dddmisc-core
+	uv build --wheel ./projects/dddmisc-core
 
 publish.dddmisc-core: build.dddmisc-core
-	poetry publish --skip-existing -C ./projects/dddmisc-core
+	uv publish --check-url https://pypi.org/simple/ ./projects/dddmisc-core/dist/*
 
 check.dddmisc-messagebus:
-	poetry check-project -C ./projects/dddmisc-messagebus
-	poetry run pytest test/bases/d3m/messagebus
+	uv run pytest test/bases/d3m/messagebus
 
 build.dddmisc-messagebus: check.dddmisc-messagebus
 	rm -rf ./projects/dddmisc-messagebus/dist
-	poetry build-project -C ./projects/dddmisc-messagebus
+	uv build --wheel ./projects/dddmisc-messagebus
 
 publish.dddmisc-messagebus: build.dddmisc-messagebus
-	poetry publish --skip-existing -C ./projects/dddmisc-messagebus
+	uv publish --check-url https://pypi.org/simple/ ./projects/dddmisc-messagebus/dist/*
 
 check.dddmisc-handlers-collection:
-	poetry check-project -C ./projects/dddmisc-handlers-collection
-	poetry run pytest test/bases/d3m/hc
+	uv run pytest test/bases/d3m/hc
 
 build.dddmisc-handlers-collection: check.dddmisc-handlers-collection
 	rm -rf ./projects/dddmisc-handlers-collection/dist
-	poetry build-project -C ./projects/dddmisc-handlers-collection
+	uv build --wheel ./projects/dddmisc-handlers-collection
 
 publish.dddmisc-handlers-collection: build.dddmisc-handlers-collection
-	poetry publish --skip-existing -C ./projects/dddmisc-handlers-collection
+	uv publish --check-url https://pypi.org/simple/ ./projects/dddmisc-handlers-collection/dist/*
 
 check.dddmisc-domain:
-	poetry check-project -C ./projects/dddmisc-domain
-	poetry run pytest test/bases/d3m/domain
+	uv run pytest test/bases/d3m/domain
 
 build.dddmisc-domain: check.dddmisc-domain
 	rm -rf ./projects/dddmisc-domain/dist
-	poetry build-project -C ./projects/dddmisc-domain
+	uv build --wheel ./projects/dddmisc-domain
 
 publish.dddmisc-domain: build.dddmisc-domain
-	poetry publish --skip-existing -C ./projects/dddmisc-domain
+	uv publish --check-url https://pypi.org/simple/ ./projects/dddmisc-domain/dist/*
 
 check.dddmisc-uow:
-	poetry check-project -C ./projects/dddmisc-uow
-	poetry run pytest test/bases/d3m/uow
+	uv run pytest test/bases/d3m/uow
 
 build.dddmisc-uow: check.dddmisc-uow
 	rm -rf ./projects/dddmisc-uow/dist
-	poetry build-project -C ./projects/dddmisc-uow
+	uv build --wheel ./projects/dddmisc-uow
 
 publish.dddmisc-uow: build.dddmisc-uow
-	poetry publish --skip-existing -C ./projects/dddmisc-uow
+	uv publish --check-url https://pypi.org/simple/ ./projects/dddmisc-uow/dist/*
 
 check-all: check.dddmisc-core check.dddmisc-messagebus check.dddmisc-handlers-collection check.dddmisc-domain check.dddmisc-uow
 

@@ -1,24 +1,24 @@
-[tool.poetry]
+[project]
 name = "dddmisc-unit-of-work"
 version = "0.3.2"
 description = "This package provides the implementation pattern 'unit of work'"
-authors = ['Vladislav Vorobyov <vladislav.vorobyov@gmail.com>']
-homepage = "https://dddmisc.github.io/dddmisc-docs/"
-repository = "https://github.com/dddmisc/dddmisc"
-license = "MIT"
+authors = [
+    {name = "Vladislav Vorobyov", email = "vladislav.vorobyov@gmail.com"},
+]
+license = {text = "MIT"}
 readme = "README.md"
-
-packages = [
-    { include = "d3m/uow", from = "../../bases" },
+requires-python = ">=3.10"
+dependencies = [
+    "dddmisc-core~=0.7.0",
 ]
 
-[tool.poetry.dependencies]
-python = "^3.10"
-dddmisc-core = "~0.7.0"
-
-
-[tool.poetry.group.dev.dependencies]
+[project.urls]
+Homepage = "https://dddmisc.github.io/dddmisc-docs/"
+Repository = "https://github.com/dddmisc/dddmisc"
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel.force-include]
+"../../bases/d3m/uow" = "d3m/uow"

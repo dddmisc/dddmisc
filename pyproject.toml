@@ -1,35 +1,37 @@
-[tool.poetry]
+[project]
 name = "dddmisc"
 version = "0.1.0"
 description = ""
-authors = ["Vladislav Vorobyov <vladislav.vorobyov@gmail.com>"]
-license = "MIT"
+authors = [
+    {name = "Vladislav Vorobyov", email = "vladislav.vorobyov@gmail.com"},
+]
+license = {text = "MIT"}
 readme = "README.md"
-
-packages = [
-    { include = "d3m/core", from = "bases" },
+requires-python = ">=3.10"
+dependencies = [
+    "tenacity==8.0.0",
+    "pydantic==2.1.0",
 ]
 
-[tool.poetry.dependencies]
-python = "^3.10"
-tenacity = "8.0.0"
-pydantic = "2.1.0"
+[dependency-groups]
+dev = [
+    "pytest-cov>=4.1.0",
+    "pytest-asyncio>=0.23.5",
+    "pytest-mock>=3.12.0",
+    "mypy>=1.8.0",
+]
 
-
-[tool.poetry.group.dev.dependencies]
-pytest-cov = {extras = ["toml"], version = "^4.1.0"}
-pytest-asyncio = "^0.23.5"
-pytest-mock = "^3.12.0"
-mypy = "^1.8.0"
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+[tool.uv]
+package = false
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
 testpaths = [
     "test",
+]
+pythonpath = [
+    "bases",
+    "components",
 ]
 filterwarnings = [
     'ignore::DeprecationWarning:pytest_asyncio',

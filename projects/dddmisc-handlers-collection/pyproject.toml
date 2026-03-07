@@ -1,24 +1,25 @@
-[tool.poetry]
+[project]
 name = "dddmisc-handlers-collection"
 version = "0.6.0"
-description = "This package provides implementation a collection of command’s and event’s handlers"
-authors = ['Vladislav Vorobyov <vladislav.vorobyov@gmail.com>']
-homepage = "https://dddmisc.github.io/dddmisc-docs/"
-repository = "https://github.com/dddmisc/dddmisc"
-license = "MIT"
+description = "This package provides implementation a collection of command's and event's handlers"
+authors = [
+    {name = "Vladislav Vorobyov", email = "vladislav.vorobyov@gmail.com"},
+]
+license = {text = "MIT"}
 readme = "README.md"
-
-packages = [
-    { include = "d3m/hc", from = "../../bases" },
+requires-python = ">=3.10"
+dependencies = [
+    "dddmisc-core~=0.7.0",
+    "tenacity>=8.0.0",
 ]
 
-[tool.poetry.dependencies]
-python = "^3.10"
-dddmisc-core = "~0.7.0"
-tenacity = "^8.0.0"
-
-[tool.poetry.group.dev.dependencies]
+[project.urls]
+Homepage = "https://dddmisc.github.io/dddmisc-docs/"
+Repository = "https://github.com/dddmisc/dddmisc"
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel.force-include]
+"../../bases/d3m/hc" = "d3m/hc"
